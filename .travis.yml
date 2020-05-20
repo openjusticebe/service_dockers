@@ -17,7 +17,7 @@ jobs:
   include:
   ########### BUILD
   - stage: build
-  - name: Build docker jupyter
+    name: Build docker jupyter
     script:
     - cd jupyter
     - 'docker build -t oj_jupyter
@@ -31,7 +31,7 @@ jobs:
 
   ########### DEPLOY
   - stage: deploy
-  - name: Deploy docker jupyter
+    name: Deploy docker jupyter
     if: branch = master AND type = push AND fork = false
     script:
     - echo "Nothing here yet"

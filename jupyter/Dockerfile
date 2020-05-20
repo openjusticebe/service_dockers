@@ -10,7 +10,7 @@ RUN apt-get update &&  apt-get install -yq \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN git clone https://github.com/betagouv/andi-data/ /jupyter
-COPY ./* /jupyter
+COPY ./* /jupyter/
 WORKDIR /jupyter
 RUN pipenv install --system --deploy
 COPY ./start.sh /jupyter/start.sh

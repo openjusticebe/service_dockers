@@ -16,6 +16,7 @@ cache:
 jobs:
   include:
   ########### BUILD
+  - stage: build
   - name: Build docker jupyter
     script:
     - cd jupyter

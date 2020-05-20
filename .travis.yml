@@ -1,0 +1,40 @@
+os: linux
+language: python
+python: 3.7
+services:
+    - docker
+stages:
+- build
+- deploy
+git:
+  submodules: false
+cache:
+  directories:
+  - public
+  - $HOME/.docker
+  - $HOME/.cache/pip
+jobs:
+  include:
+  ########### BUILD
+  - name: Build docker jupyter
+    script:
+    - cd jupyter
+    - 'docker build -t oj_jupyter
+      --build-arg PW=$JUPYTER_PW
+      ./
+
+      '
+    - docker images
+    - docker tag oj_jupyter $DOCKER_USER/jupyter
+    - docker push $DOCKER_USER/jupyter
+
+  ########### DEPLOY
+  - stage: deploy
+  - name: Deploy docker jupyter
+    if: branch = master AND type = push AND fork = false
+    script:
+    - echo "Nothing here yet"
+   
+before_install:
+- echo "$DOCKER_PW" | docker login -u "$DOCKER_USER" --password-stdin
+- pip install pipenv
